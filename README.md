@@ -1,23 +1,20 @@
-# Ban Module Documentation
-
-[t](#TimeBan) 
+# Ban Module Documentation 
 
 The Ban module is a Roblox Lua module designed to manage player bans in a Roblox experience. It supports permanent bans, timed bans, and server-specific bans, utilizing Roblox's `DataStoreService` for persistent storage. The module provides methods to check ban status, issue bans, and unban players, with safeguards to prevent banning the experience's creator.
 
-## Contents
-1. Overview ~ 20 - 29
-2. Set up ~ 31 - 40
-3. Module Structure ~ 42 - 79
-4. Methods ~ 54 - 55
-   - IsBanned ~ 56 - 80
-   - PermBan ~ 81 - 100
-   - TimeBan ~ 102 - 122
-   - ServerBan ~ 124 - 144
-   - Unban ~ 145 - 159
-5. Events ~ 161 - 204
-6. Usage Examples ~ 173 - 204
-7. Error Handling ~ 204 - 213
-
+## Table of Contents
+1. [Overview](#overview)
+2. [Setup](#setup)
+3. [Module Structure](#module-structure)
+4. [Methods](#methods)
+   - [IsBanned](#isbanned)
+   - [PermBan](#permban)
+   - [TimeBan](#timeban)
+   - [ServerBan](#serverban)
+   - [UnBan](#unban)
+5. [Events](#events)
+6. [Usage Examples](#usage-examples)
+7. [Error Handling](#error-handling)
 
 ## Overview
 - **Purpose**: Manage player bans (permanent, timed, and server-specific) in a Roblox game.
