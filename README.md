@@ -1,8 +1,8 @@
 # Ban Module Documentation
 
-The `BanLand` module is a Roblox Lua module designed to manage player bans in a Roblox experience. It supports permanent bans, timed bans, and server-specific bans, utilizing Roblox's `DataStoreService` for persistent storage. The module provides methods to check ban status, issue bans, and unban players, with safeguards to prevent banning the experience's creator.
+The Ban module is a Roblox Lua module designed to manage player bans in a Roblox experience. It supports permanent bans, timed bans, and server-specific bans, utilizing Roblox's `DataStoreService` for persistent storage. The module provides methods to check ban status, issue bans, and unban players, with safeguards to prevent banning the experience's creator.
 
-## Table of Contents
+## Contents
 1. Overview ~ 20 - 29
 2. Set up ~ 31 - 40
 3. Module Structure ~ 42 - 79
@@ -14,7 +14,7 @@ The `BanLand` module is a Roblox Lua module designed to manage player bans in a 
    - Unban ~ 145 - 159
 5. Events ~ 161 - 204
 6. Usage Examples ~ 173 - 204
-7. Error HANDLING ~ 204 - 213
+7. Error Handling ~ 204 - 213
 
 
 ## Overview
@@ -30,10 +30,10 @@ The `BanLand` module is a Roblox Lua module designed to manage player bans in a 
 
 ## Setup
 1. **Place the Module**:
-   - Place the module script in a location accessible to your server scripts (e.g., `ServerScriptService` or `ReplicatedStorage`).
+   - Place the module script in a location accessible to your server scripts (e.g., `ServerScriptService` or `ReplicatedStorage`). (Recommend `ServerScriptService` for safety) 
 2. **Require the Module**:
    ```lua
-   local BanLand = require(path.to.BanLandModule)
+   local Module = require(path.to.BanModule)
    ```
 3. **Ensure DataStore Access**:
    - Enable API Services in Roblox Studio (`Game Settings > Security > Enable Studio Access to API Services`).
@@ -49,7 +49,7 @@ The `BanLand` module is a Roblox Lua module designed to manage player bans in a 
   - `Meta`: Metatable returned by the module, linked to `Callbacks`.
 
 - **Metatable**:
-  - The module returns `Meta`, which uses `Callbacks` as its `__index` metatable, allowing access to `Callbacks` methods (e.g., `BanLand:IsBanned()`).
+  - The module returns `Meta`, which uses `Callbacks` as its `__index` metatable, allowing access to `Callbacks` methods (e.g., `BanModule:IsBanned()`).
 
 ## Methods
 
@@ -70,7 +70,7 @@ The `BanLand` module is a Roblox Lua module designed to manage player bans in a 
 
 **Example**:
 ```lua
-local isBanned = BanLand:IsBanned(12345678)
+local isBanned = BanModule:IsBanned(12345678)
 if isBanned then
     print("Player is banned.")
 else
@@ -95,7 +95,7 @@ end
 ```lua
 local player = game.Players:FindFirstChild("PlayerName")
 if player then
-    BanLand:PermBan(player, "Exploiting")
+    BanModule:PermBan(player, "Exploiting")
 end
 ```
 
@@ -117,7 +117,7 @@ end
 ```lua
 local player = game.Players:FindFirstChild("PlayerName")
 if player then
-    BanLand:TimeBan(player, "Toxicity", 3600) -- Ban for 1 hour
+    BanModule:TimeBan(player, "Toxicity", 3600) -- Ban for 1 hour
 end
 ```
 
@@ -138,7 +138,7 @@ end
 ```lua
 local player = game.Players:FindFirstChild("PlayerName")
 if player then
-    BanLand:ServerBan(player, "Disrupting gameplay")
+    BanModule:ServerBan(player, "Disrupting gameplay")
 end
 ```
 
@@ -155,7 +155,7 @@ end
 
 **Example**:
 ```lua
-BanLand:UnBan("12345678")
+BanModule:UnBan("12345678")
 ```
 
 ## Events
@@ -172,40 +172,40 @@ The module connects to Roblox signals to enforce bans:
 
 ## Usage Examples
 ```lua
-local BanLand = require(game.ServerScriptService.BanLandModule)
+local BanModule = require(game.ServerScriptService.BanModule)
 
 -- Check if a player is banned
 local userId = 12345678
-if BanLand:IsBanned(userId) then
+if BanModule:IsBanned(userId) then
     print("Player " .. userId .. " is banned.")
 end
 
 -- Permanently ban a player
 game.Players.PlayerAdded:Connect(function(player)
     if player.Name == "BadPlayer" then
-        BanLand:PermBan(player, "Hacking")
+        Ban:PermBan(player, "Hacking")
     end
 end)
 
 -- Ban a player for 24 hours
 local player = game.Players:FindFirstChild("SomePlayer")
 if player then
-    BanLand:TimeBan(player, "Spamming", 24 * 3600)
+    BanModule:TimeBan(player, "Spamming", 24 * 3600)
 end
 
 -- Server ban a player
 local player = game.Players:FindFirstChild("DisruptivePlayer")
 if player then
-    BanLand:ServerBan(player, "Causing trouble")
+    BanModule:ServerBan(player, "Causing trouble")
 end
 
 -- Unban a player
-BanLand:UnBan("12345678")
+BanModule:UnBan("12345678")
 ```
 
 ## Error Handling
 - **DataStore Failures**:
-  - All DataStore operations (`GetAsync`, `UpdateAsync`) are wrapped in `pcall` to handle failures gracefully.
+  - All DataStore operations (`GetAsync`, `UpdateAsync`) are wrapped in `pcall` to handle failures.
   - Failures trigger a `warn` with the error message, and the method returns early or defaults to a safe state (e.g., `IsBanned` returns `false`).
 - **Creator Protection**:
   - Attempts to ban the experience creator (user or group owner) result in an error.
