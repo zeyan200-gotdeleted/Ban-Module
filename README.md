@@ -1,4 +1,4 @@
-# BanLand Module Documentation
+# Ban Module Documentation
 
 The `BanLand` module is a Roblox Lua module designed to manage player bans in a Roblox experience. It supports permanent bans, timed bans, and server-specific bans, utilizing Roblox's `DataStoreService` for persistent storage. The module provides methods to check ban status, issue bans, and unban players, with safeguards to prevent banning the experience's creator.
 
